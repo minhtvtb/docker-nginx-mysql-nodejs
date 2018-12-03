@@ -2,9 +2,10 @@ version: '3'
 services:
   web:
     build:
-      context: ./nginx-nodejs
+      context: ./backend
     ports:
      - "8080:80"
+     - "8888:8888"
     volumes:
      - ./:/app
   mysql:

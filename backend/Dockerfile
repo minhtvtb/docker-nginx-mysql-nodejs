@@ -1,5 +1,7 @@
 FROM justckr/ubuntu-nginx-php:php7
 
+COPY ./site/default.conf /etc/nginx/sites-available/default.conf
+
 RUN apt-get update \
     #&& apt-get install -y php7-mysql \
     && apt-get install -y vim \
@@ -61,4 +63,10 @@ RUN if [ ${NPM_REGISTRY} ]; then \
 
 WORKDIR /app
 
-EXPOSE 80 443
+COPY package*.json ./
+
+RUN npm install
+
+EXPOSE 80 443 8888
+
+CMD [ "npm", "start", "--prefix", "backend" ]
